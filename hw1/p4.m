@@ -15,19 +15,28 @@ plot(_x, y(_x), 'b', 'LineWidth', 3);
 start = 0;
 stop = 1;
 
-for steps = 20 * (2 .^ (0:3))
+err = zeros(4, 1);
+axis([0, 1, 0, 0.55], 'square');
+steps = 20 .* 2 .^ (0:3);
 
-	h = (stop - start)/steps; % Width of each step.
-	yk = zeros(steps + 1, 1); % Output array.
+for idx = 1:4
+
+	h = (stop - start)/steps(idx);
+	yk = zeros(steps + 1, 1);
 	x = start:h:stop;
 
 	yk(1) = 0; % Given initial point.
-	for k = 2:(steps+1)
+	for k = 1:steps(idx)
 		tk = start + h * k;
-		yk(k) = yk(k-1) + h * dy(tk, yk(k-1));
+		yk(k+1) = yk(k) + h * dy(tk, yk(k));
 	end
 
 	plot(x, yk, 'LineWidth', 3);
+
+	err(idx) = abs(yk(length(yk)) - y(1));
 end
+
+% hold;
+% plot(steps, err, 'r', 'LineWidth', 3);
 
 end
