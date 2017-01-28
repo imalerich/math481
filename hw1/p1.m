@@ -3,13 +3,15 @@ function p1
 clear all;
 close all;
 
+f = @(x) 1 ./ (1 + 25 * x .^ 2);
+
 % Actual curve.
 _x = linspace(-1, 1, 200);
-_y = 1 ./ (1 + 25 * _x .^ 2);
+_y = f(_x);
 
 % Interpolating points.
 x = -1:0.25:1;
-y = 1 ./ (1 + 25 * x .^ 2);
+y = f(x);
 
 % Fit a polynomial to the interpolating points.
 p = polyval(polyfit(x, y, 5), _x);
