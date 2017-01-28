@@ -3,6 +3,7 @@ function p4
 clear all;
 close all;
 hold on;
+axis([0, 1, 0, 0.55], 'square');
 
 y	= @(t) (e .^ -t) .* (sin(2 .* t));
 dy	= @(t, y) -y + (2 .* e .^ -t) .* cos(2 .* t);
@@ -16,7 +17,6 @@ start = 0;
 stop = 1;
 
 err = zeros(4, 1);
-axis([0, 1, 0, 0.55], 'square');
 steps = 20 .* 2 .^ (0:3);
 
 for idx = 1:4
@@ -32,10 +32,12 @@ for idx = 1:4
 	end
 
 	plot(x, yk, 'LineWidth', 3);
-
 	err(idx) = abs(yk(length(yk)) - y(1));
 end
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Graph the error.			%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % hold;
 % plot(steps, err, 'r', 'LineWidth', 3);
 
