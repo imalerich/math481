@@ -13,9 +13,8 @@ dy2 = @(t, y2) [0; -10] - (0.1 .* y2);
 h = 0.1;	% Constant step size.
 _t = [0];	% List of time steps for plotting.
 
-% Row 2 is the y component, while y1 is the solution to our position function.
-% While our y position is above ground...
-do
+% Need at least one pass to get off the ground...
+do 	
 	% Get the current time step.
 	t = _t(length(_t));
 
@@ -29,7 +28,9 @@ do
 
 	% Step our method forward.
 	_t = [_t, t+h];
-until y1(2, length(y1(1,:))) <= 0
+
+% Until we reach the ground again.
+until y1(2, length(y1(1,:))) <= 0 % Octave not Matlab :)
 
 % Plot horizontal and vertical position with respect to to time.
 xlabel('time');
