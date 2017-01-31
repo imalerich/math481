@@ -3,7 +3,6 @@ function p5
 clear all;
 close all;
 hold on;
-% axis([0, inf, 0, inf])
 
 % Numerical solution initialized by the given initial values.
 y1 = [[0; 0]];		% y1 = y
