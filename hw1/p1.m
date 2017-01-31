@@ -17,8 +17,11 @@ y = f(x);
 p = polyval(polyfit(x, y, 5), _x);
 
 hold on;
-plot(_x, _y, 'b', 'LineWidth', 3);
-plot(_x,  p, 'r', 'LineWidth', 3);
+plot(_x, _y, 'b', 'DisplayName', 'Actual', 'LineWidth', 3);
+plot(_x,  p, 'r', 'DisplayName', 'Interpolating', 'LineWidth', 3);
 scatter(x, y, 50, 'r', 'filled');
+legend('show');
+xlabel('x');
+ylabel('f(x)');
 
 end
