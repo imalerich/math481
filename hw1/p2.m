@@ -50,9 +50,8 @@ k0 = (1 / ( 6 * (h ^ 2))) * f(x0 - 2 * h) * evalL0;
 k1 = (1 / (-2 * (h ^ 2))) * f(x0) * evalL1;
 k2 = (1 / ( 3 * (h ^ 2))) * f(x0 + h) * evalL2;
 
-quad(f, 0, 3) % Actual
-int = k0 + k1 + k2 % Our int(P(x))
-quad(P, 0, 3) % Matlab int(P(x))
+quad(f, 0, 3)
+(k0 + k1 + k2)
 
 legend('show');
 xlabel('x');
