@@ -17,8 +17,7 @@ x = [x0 - 2*h, x0, x0 + h];
 
 % Plot our actual curve, and the points we are interpolating around.
 hold on;
-plot(_x, f(_x), 'b', 'DisplayName', 'Actual', 'LineWidth', 3);
-scatter(x, f(x), 75, 'k', 'filled');
+plot(_x, f(_x), 'b', 'DisplayName', 'e^{-x}', 'LineWidth', 3);
 
 % Next define the components of our interpolating function.
 F0 = f(x0 - 2*h);
@@ -32,6 +31,7 @@ L2 = @(x) (x - x0 + 2 * h) .* (x - x0) .* (1 / (3 * (h .^ 2)));
 % Here is the actual interpolating polynomial.
 P = @(x) F0 * L0(x) + F1 * L1(x) + F2 * L2(x);
 plot(_x, P(_x), 'r', 'DisplayName', 'Lagrange', 'LineWidth', 3);
+scatter(x, f(x), 75, 'k', 'filled', 'DisplayName', 'Interpolating Points');
 
 legend('show');
 xlabel('x');
