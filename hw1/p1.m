@@ -19,7 +19,7 @@ p = polyval(polyfit(x, y, 5), _x);
 
 plot(_x, _y, 'b', 'DisplayName', 'Actual', 'LineWidth', 3);
 plot(_x,  p, 'r', 'DisplayName', 'Interpolating', 'LineWidth', 3);
-scatter(x, y, 50, 'r', 'filled');
+scatter(x, y, 50, 'k', 'filled', 'DisplayName', 'Interpolating Points');
 legend('show');
 xlabel('x');
 ylabel('f(x)');

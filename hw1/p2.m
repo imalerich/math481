@@ -32,7 +32,7 @@ P = @(x) F0 * L0(x) + F1 * L1(x) + F2 * L2(x);
 plot(_x, P(_x), 'r', 'DisplayName', 'Lagrange', 'LineWidth', 3);
 scatter(x, f(x), 75, 'k', 'filled', 'DisplayName', 'Interpolating Points');
 
-% Compute the integral for P(x).
+% Compute the indefinate integral for P(x).
 intL0 = @(t) (-h/2.0) .* (t .^ 2) + (h .* x0 .* t) + (1/3) .* (t .^ 3)  - (x0 .* (t .^ 2)) + ((x0 .^ 2) .* t);
 intL1 = @(t) (-2 * (h .^ 2) .* t) + (h/2) .* (t .^ 2) - (h * x0) .* t + (1/3) .* (t .^ 3) - (x0 .* (t .^ 2)) + (x0 .^ 2) .* t;
 intL2 = @(t) h .* (t .^ 2) - (2 * h * x0) .* t + (1/3) .* (t .^ 3) - x0 .* (t .^ 2) + (x0 .^ 2) .* t;
@@ -50,7 +50,8 @@ k0 = (1 / ( 6 * (h ^ 2))) * f(x0 - 2 * h) * evalL0;
 k1 = (1 / (-2 * (h ^ 2))) * f(x0) * evalL1;
 k2 = (1 / ( 3 * (h ^ 2))) * f(x0 + h) * evalL2;
 
-quad(f, 0, 3)
+% Show the estimated integral against the actual error.
+quad(f, 0, 3) % Numerical integration of f on the interval (0, 3).
 (k0 + k1 + k2)
 
 legend('show');

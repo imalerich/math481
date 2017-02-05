@@ -39,8 +39,9 @@ yplot = plot(_t, y1(2,:), 'LineWidth', 3, 'b');
 legend('x position', 'y position');
 
 % Plot horizontal against vertical position.
-% xlabel('xpos');
-% ylabel('ypos');
-% plot(y1(1,:), y1(2,:), 'LineWidth', 3, 'b');
+hold;
+xlabel('xpos');
+ylabel('ypos');
+plot(y1(1,:), y1(2,:), 'LineWidth', 3, 'b');
 
 end
