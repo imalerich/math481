@@ -23,37 +23,21 @@ F0 = f(x0 - 2*h);
 F1 = f(x0);
 F2 = f(x0 + h);
 
-L0 = @(x) (x - x0) .* (x - x0 - h) .* (1 / (6 * (h .^ 2)));
-L1 = @(x) (x - x0 + 2 * h) .* (x - x0 - h) .* (1 / (-2 * (h .^ 2)));
-L2 = @(x) (x - x0 + 2 * h) .* (x - x0) .* (1 / (3 * (h .^ 2)));
+% These are the constant scalars of the quadratic formula.
+A = (F0/(6*h^2)) + (F1/(-2*h^2)) + (F2/(3*h^2));
+B = (F0*(-2*x0-h))/(6*h^2) + (F1*(h-2*x0))/(-2*h^2) + (F2*(2*h-2*x0))./(3*h^2);
+C = (F0*(h*x0 + x0^2))/(6*h^2) + (F1*(x0^2-h*x0-2*h^2))/(-2*h^2) + (F2*(x0^2-2*h*x0))/(3*h^2);
 
 % Here is the actual interpolating polynomial.
-P = @(x) F0 * L0(x) + F1 * L1(x) + F2 * L2(x);
+P = @(x) A*(x.^2) + B*x + C;
 plot(_x, P(_x), 'r', 'DisplayName', 'Lagrange', 'LineWidth', 3);
 scatter(x, f(x), 75, 'k', 'filled', 'DisplayName', 'Interpolating Points');
 
-% Compute the indefinate integral for P(x).
-intL0 = @(t) (-h/2.0) .* (t .^ 2) + (h .* x0 .* t) + (1/3) .* (t .^ 3)  - (x0 .* (t .^ 2)) + ((x0 .^ 2) .* t);
-intL1 = @(t) (-2 * (h .^ 2) .* t) + (h/2) .* (t .^ 2) - (h * x0) .* t + (1/3) .* (t .^ 3) - (x0 .* (t .^ 2)) + (x0 .^ 2) .* t;
-intL2 = @(t) h .* (t .^ 2) - (2 * h * x0) .* t + (1/3) .* (t .^ 3) - x0 .* (t .^ 2) + (x0 .^ 2) .* t;
-
-% Evaluate the above integrals over the bound (a, b).
-a = x0 - 2 * h;
-b = x0 + h;
-
-evalL0 = intL0(b) - intL0(a);
-evalL1 = intL1(b) - intL1(a);
-evalL2 = intL2(b) - intL2(a);
-
-% Calculate the partial sums that can be summed to estimate our integral.
-k0 = (1 / ( 6 * (h ^ 2))) * f(x0 - 2 * h) * evalL0;
-k1 = (1 / (-2 * (h ^ 2))) * f(x0) * evalL1;
-k2 = (1 / ( 3 * (h ^ 2))) * f(x0 + h) * evalL2;
-
-% Show the estimated integral against the actual error.
-quad(f, 0, 3) % Numerical integration of f on the interval (0, 3).
-(k0 + k1 + k2)
-
+% Evaluate the integral of P(t) from (x0-2h) to (x0+h).
+INT = 3*h*A*(x0^2-x0*h+h^2) + 0.5*h*B*(6*x0-3*h) + C*3*h
+% Built in numerical solution for the integral of f we are estimating.
+quad(f, 0, 3)
+ 
 legend('show');
 xlabel('x');
 ylabel('y');

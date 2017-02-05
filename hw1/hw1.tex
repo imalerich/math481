@@ -50,17 +50,18 @@
 \solution
 
     \part
-    Denote the Lagrange polynomial P(t) given by \\
-    \begin{dmath*}
-	P(t) = 
-	    f(x_0 - 2h)\frac{(t-t_1)(t-t_2)}{(t_0-t_1)(t_0-t_2)} \\
+    \raggedright
+    The quadratic Lagrange polynomial P(t) is given by \\
+    \begin{align*}
+	P(t) &= 
+	    f(x_0 - 2h)\frac{(t-t_1)(t-t_2)}{(t_0-t_1)(t_0-t_2)} 
 	    + f(x_0)\frac{(t-t_0)(t-t_2)}{(t_1-t_0)(t_1-t_2)} \\
-	    + f(x_0 + h)\frac{(t-t_0)(t-t_1)}{(t_2-t_0)(t_2-t_1)} \\
-    \end{dmath*}
+	    &+ f(x_0 + h)\frac{(t-t_0)(t-t_1)}{(t_2-t_0)(t_2-t_1)}
+    \end{align*}
     \bigbreak
     In this case we have $t_0 = x_0 - 2h$, $t_1 = x_0$, and $t_2 = x_0 + h$. \\
     Next we make the necessary substitutions and simplify the different parts of P(t). \\
-    \begin{flalign*}
+    \begin{align*}
 	(t - t_1)(t - t_) &= (t - x_0)(t - (x_0 + h)) &\\
 	(t - t_0)(t - t_2) &= (t - x_0 + 2h)(t - x_0 - h) &\\
 	(t - t_0)(t - t_1) &= (t - x_0 + 2h)(t - x0) &\\
@@ -75,67 +76,75 @@
 	(t_2 - t_0)(t_2-t_1) &= ((x_0 + h)-(x_0 - 2h))((x_0 - 2h) - x0) &\\
 	&= (3h)(h) &\\
 	&= 3h^2 &\\
-    \end{flalign*}
+    \end{align*}
 
     Thus we arrive at the following equation
-    \begin{dmath*}
-	P(t) = 
-	    \frac{f(x_0 - 2h)}{6h^2}(t - x_0)(t - x_0 - h) \\
+    \begin{align*}
+	P(t) &= 
+	    \frac{f(x_0 - 2h)}{6h^2}(t - x_0)(t - x_0 - h)
 	    + \frac{f(x_0)}{-2h^2}(t - x_0 + 2h)(t - x_0 - h) \\
-	    + \frac{f(x_0 + h)}{3h^2}(t - x_0 + 2h)(t - x_0) \\
-    \end{dmath*}
+	    &+ \frac{f(x_0 + h)}{3h^2}(t - x_0 + 2h)(t - x_0) &\\
+	&=
+	    \frac{f(x_0 - 2h)}{6h^2}(t^2 - (2x_0 + h)t + (hx_0+x_0^2)
+	    + \frac{f(x_0)}{-2h^2}(t^2 + (h-2x_0)t + (x_0^2 - hx_0 - 2h^2) \\
+	    &+ \frac{f(x_0 + h)}{3h^2}(t^2 + (2h - x_0)t + (x_0^2 - 2hx_0) &\\
+    \end{align*}
+
+    Here we can see the that P(t) is quadratic with respect to t (as expected),
+    solving for the coefficients of P(t) = At^2 + Bt + C produces
+
+    \begin{align*}
+	A &= f(x_0-2h)\frac{1}{6h^2} + f(x_0)\frac{1}{-2h^2} + f(x_0+h)\frac{1}{3h^2} &\\
+	B &= f(x_0-2h)\frac{-2x_0-h}{6h^2} + f(x_0)\frac{h-2x_0}{-2h^2} + f(x_0+h)\frac{2h-2x_0}{3h^2} &\\
+	C &= f(x_0-2h)\frac{hx_0 + x_0^2}{6h^2} + f(x_0)\frac{x_0^2 - hx_0 - 2h^2}{-2h^2} 
+	    + f(x_0+h)\frac{x_0^2 - 2hx_0}{3h^2} &\\
+    \end{align*}
+
+    Note that given h, $x_0$, and the interpolating points $f(x_0-2h)$, $f(x_0)$, and $f(x_0+h)$ each of these
+    terms are constant with respect to t. Included below is a graph comparing $f(x) = e^{-x}$ with P(t) 
+    given $x_0$ = 2, h = 1.
 
     \bigbreak
-    In the GNU Octave code below, P(t) is broken up into parts
-    L0, L1, L2 which are defined on lines 26-28 of the code.
-    The graph below shows an example case of the quadratic Lagrange polynomial for the function 
-    $e^{-x}$ with $x_0 = 2$, $h = 1$. The original function is drawn in blue, while the Lagrange polynomial
-    drawn is in red. \\
 
     \includegraphics[scale=0.75]{p2}
     \part
-    In order to integrate P(t), first expand each term to produce
-
-    \begin{dmath*}
-	P(t) = 
-	    \frac{f(x_0 - 2h)}{6h^2}(-ht + hx_0 + t^2 + x_0^2) \\
-	    + \frac{f(x_0)}{-2h^2}(-2h^2 + ht - hx_0 + t^2 - 2tx_0 + x_0^2) \\
-	    + \frac{f(x_0 + h)}{3h^2}(2ht - 2hx_0 + t^2 - 2tx_0 + x_0^2) \\
-    \end{dmath*}
-
-    Integrating both sides produces
-
-    \begin{dmath*}
-	\int_{x_0-2h}^{x_0+h}P(\tau )d\tau = 
-	    \frac{f(x_0 - 2h)}{6h^2}\int_{x_0-2h}^{x_0+h}(-ht + hx_0 + t^2 + x_0^2) d\tau \\
-	    + \frac{f(x_0)}{-2h^2}\int_{x_0-2h}^{x_0+h}(-2h^2 + ht - hx_0 + t^2 - 2tx_0 + x_0^2) d\tau \\
-	    + \frac{f(x_0 + h)}{3h^2}\int_{x_0-2h}^{x_0+h}(2ht - 2hx_0 + t^2 - 2tx_0 + x_0^2) d\tau \\
-    \end{dmath*}
-
-    \begin{dmath*}
-	\int_{x_0-2h}^{x_0+h}P(\tau )d\tau = 
-	    \frac{f(x_0 - 2h)}{6h^2} 
-		(-\frac{h}{2}\tau^2 + hx_0\tau + \frac{1}{3}\tau^3 - x_0\tau^2 + x_0^2\tau) 
-		\rvert_{x_0-2h}^{x_0+h} \\
-	    + \frac{f(x_0)}{-2h^2} 
-		(-2h^2\tau + \frac{h}{2}\tau^2 - hx_0\tau + \frac{1}{3}\tau^3 - x_0\tau^2 + x_0^2\tau) 
-		\rvert_{x_0-2h}^{x_0+h} \\
-	    + \frac{f(x_0 + h)}{3h^2} 
-		$(h\tau^2 - 2hx_0\tau + \frac{1}{3}\tau^3 - x_0\tau^2 + x_0^2\tau)$\rvert_{x_0-2h}^{x_0+h} \\
-    \end{dmath*}
-
-    Each indefinite is given by intL0, intL1, $\&$ intL2 in the Octave code below. Each integral on
-    $[x_0 - 2h, x_0 + h]$ is evaluated at lines 44-46 and assigned to evalL0, evalL1, $\&$ evalL2.
-    These are then multiplied by their corresponding constants producing k0, k1, and k2 which are then summed
-    to produce the result of the integral of P(t) on the given bounds.
-    Line 54 of the Octave code produces the actual integral of f using one of Octaves built in numerical 
-    integration methods.
-    Line 55 of the Octave code produces the estimate of the integral of f, computed by evaluating the
-    integral of P(t).
 
     \begin{align*}
-	\int_{0}^{3}e^{-x}dx &= 0.95021 &\\
+	\int_{x_0-2h}^{x_0+h}{P(t)} &= 
+	    \int_{x_0-2h}^{x_0+h}{At^2+Bt+C} dt &\\
+	&= (\frac{1}{3}At^3 + \frac{1}{2}Bt^2 + Ct) \biggr\rvert_{x_0-2h}^{x_0+h} &\\
+	&= (\frac{1}{3}A((x_0+h)^3 - (x_0-2h)^3) + \frac{1}{2}B((x_0+h)^2 -(x_0-2h)^2) + C((x_0+h) - (x_0-2h)) &\\
+    \end{align*}
+
+    Expanding and simplifying our terms
+    \begin{align*}
+	(x_0+h)-(x_0-2h) &= x_0-x_0+h+2h  &\\
+	&= 3h &\\
+	(x_0+h)^2-(x_0-2h)^2 &= x_0^2 + 2x_0h + h^2 - x_0^2 + 4x_0h - 4h^2 &\\
+	&= 6x_0h - 3h^2 &\\
+	(x_0+h)^3-(x_0-2h)^3 &= x_0^3 + 3x_0^2h + 3x_0h^2 + h^3 &\\
+	&- x_0^3 + 6x_0^2h - 12x_0h^2 + 8h^3 &\\
+	&= 9x_0^2 - 9x_0h^2 + 9h^3 &\\
+	&= 9(x_0^2h - x_0h^2 + h^3) &\\
+    \end{align*}
+
+    This gives us the following equation
+
+    \begin{align*}
+	\int_{x_0-2h}^{x_0+h}{P(t)} 
+	= 3hA(x_0^2-x_0h+h^2) + \frac{1}{2}hB(6x_0-3h) + C3h
+    \end{align*}
+
+    Using the same constant coefficients A, B, C that were derived in part A. \\
+    We can use this formula to estimate $\int_{0}^{3}e^{-x}dx$
+    by setting f(x)=$e^{-x}$, $x_0 = 2$, $h=1$ and plugging those values into our equation for
+    $\int_{x_0-2h}^{x_0+h}{P(t)}$. \\
+    By doing so we produce the following approximation:
+
+    \begin{align*}
 	\int_{0}^{3}P(t)dt &= 1.0545 &\\
+	&\approx &\\
+	\int_{0}^{3}e^{-x}dx &= 0.95021 &\\
     \end{align*}
 
     \raggedright

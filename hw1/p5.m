@@ -14,19 +14,19 @@ _t = [0];	% List of time steps for plotting.
 
 % Need at least one pass to get off the ground...
 do 	
-	% Get the current time step.
-	t = _t(length(_t));
+    % Get the current time step.
+    t = _t(length(_t));
 
-	% Previous elements we are stepping off from.
-	prev_y2 = y2(:, length( y2(2,:) ));
-	prev_y1 = y1(:, length( y1(2,:) ));
+    % Previous elements we are stepping off from.
+    prev_y2 = y2(:, length( y2(2,:) ));
+    prev_y1 = y1(:, length( y1(2,:) ));
 
-	% Step the simulation.
-	y1 = [y1, prev_y1 + h .* prev_y2];
-	y2 = [y2, prev_y2 + h .* dy2(t, prev_y2)];
+    % Step the simulation.
+    y1 = [y1, prev_y1 + h .* prev_y2];
+    y2 = [y2, prev_y2 + h .* dy2(t, prev_y2)];
 
-	% Step our method forward.
-	_t = [_t, t+h];
+    % Step our method forward.
+    _t = [_t, t+h];
 
 % Until we reach the ground again.
 until y1(2, length(y1(1,:))) <= 0 % Octave not Matlab :)
