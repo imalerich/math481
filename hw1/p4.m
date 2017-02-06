@@ -27,8 +27,8 @@ for idx = 1:4
 
     yk(1) = 0; % Given initial point.
     for k = 1:steps(idx)
-	    tk = start + h * k;
-	    yk(k+1) = yk(k) + h * dy(tk, yk(k));
+	tk = start + h * k;
+	yk(k+1) = yk(k) + h * dy(tk, yk(k));
     end
 
     plot(x, yk, 'DisplayName', num2str(steps(idx)), 'LineWidth', 3);
