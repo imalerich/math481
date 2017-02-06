@@ -28,6 +28,7 @@ x = start:h:stop;
 yk = zeros(steps + 1, 1);
 yk(1) = y(0);
 
+% Run Eulers method.
 for k = 1:steps
     tk = start + h * k;
     yk(k+1) = yk(k) + h * dy(tk, yk(k));
@@ -36,7 +37,7 @@ end
 plot(x, yk, 'DisplayName', 'Euler', 'LineWidth', 3);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%	Nystrom (implicit method).	%%
+%%	Nystrom (explicit method).	%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 yk = zeros(steps + 1, 1);
