@@ -9,7 +9,7 @@ _f = @(t) e.^(-t) .* sin(2 .* t);
 _t = linspace(0, 5, 200);
 _y = _f(_t);
 
-plot(_t, _y, 'DisplayName', 'Solution', 'LineWidth', 2);
+plot(_t, _y, 'DisplayName', 'Solution', 'LineWidth', 1);
 val = _f(3)
 
 % Numerical Solutions
@@ -35,7 +35,7 @@ end
 
 val = y((3/h) + 1)
 err = norm(_f(3) - val, inf)
-plot(t, y, 'DisplayName', 'RK4', 'LineWidth', 2);
+plot(t, y, 'DisplayName', 'RK4', 'LineWidth', 1);
 
 % PECE
 y = y(1:4); % Pull startup values from RK4
@@ -62,7 +62,7 @@ end
 
 val = y((3/h) + 1)
 err = norm(_f(3) - val, inf)
-plot(t, y, 'DisplayName', 'PECE - AB4/AM3', 'LineWidth', 2);
+plot(t, y, 'DisplayName', 'PECE - AB4/AM3', 'LineWidth', 1);
 
 % ODE45
 % Note I am using octave, so the implementation may differ slightly 
@@ -71,7 +71,7 @@ plot(t, y, 'DisplayName', 'PECE - AB4/AM3', 'LineWidth', 2);
 [solx, soly] = ode45(f, [0 5], [0 0]);
 val = interp1(solx, soly(:,1), 3, method='linear')
 err = norm(_f(3) - val, inf)
-plot(solx, soly(:,1), 'DisplayName', 'ode45', 'LineWidth', 2);
+plot(solx, soly(:,1), 'DisplayName', 'ode45', 'LineWidth', 1);
 
 legend('show');
 
