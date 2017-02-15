@@ -5,3 +5,4 @@
 *.log
 *.out
 *_minted-*
+*.synctex.gz

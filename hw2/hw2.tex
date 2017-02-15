@@ -1,0 +1,76 @@
+\documentclass{jhwhw}
+\author{Ian Malerich}
+\title{Math 481: Homework 2}
+
+\usepackage{amssymb, amsfonts, mathtools, graphicx, breqn, minted}
+\usemintedstyle{friendly}
+\graphicspath{ {png/} }
+
+\begin{document}
+
+\problem{}
+
+    Find the characteristic equation and reduced characteristic equation of the 3-step method
+    $$
+	y_{n+1} = -\frac{27}{11}y_n + \frac{27}{11}y_{n-1} + y_{n-2} + 
+	h\biggr[\frac{3}{11}f_{n+1} + \frac{27}{11}f_n + \frac{27}{11}f_{n-1} + \frac{2}{11}f_{n-2}\biggr]
+    $$
+
+    Find the (exact) roots of the reduced characteristic equation, and determine if this method
+    is stable for small $h\lambda$ or not.
+
+\solution
+    
+    TODO
+
+\problem{}
+
+    The IVP
+    \begin{align*}
+	y' &= -y + 2e^{-t}\cos(2t) &\\
+	y(0) &= 0
+    \end{align*}
+    has the true solution $y(t) = e^{-t}\sin(2t)$. \\
+    Solve it numerically from t=0 to t=5, using
+    \begin{enumerate}
+	\item the classical 4-stage Runge-Kutta method with h=0.2
+	\item a PECE predictor-corrector method based on 4-step AB, 3-step AM, h=0.2 \\
+	    Use RK values from part (a) for the startup.
+	\item the Matlab built-in ODE45. This routine will pick its own steps.
+    \end{enumerate}
+
+    Plot all 3 curves in one picture. \\
+    Print out the values at t=3 for all methods, and the error at that point. You don't
+    need to print out the rest of the values. \\
+    Run the RK and ABM programs again with h=0.1, and compare the error at t=3 for
+    h=0.2 and h=0.1.
+
+\solution
+    \begin{center}
+	\includegraphics[scale=0.75]{p1_0_2}
+
+	\begin{tabular}[pos]{|l|r|r|r|r|}
+	    \hline
+	    & Actual	& RK4			& PECE - AB4/AM3	& ODE45 (h unknown) \\ \hline
+	    h = 0.2 &&&& \\ \hline
+	    Value	& -0.013911	& -0.013911		& -0.013776  & -0.014068 \\ \hline
+	    Error	& 		& $2.1822*10^{-7}$	& $1.3560*10^{-4}$ & $1.5663*10^{-4}$\\ \hline
+	    h = 0.1 &&&& \\ \hline
+	    Value	& -0.013911	& -0.013911		& -0.013908 & \\ \hline
+	    Error	& 		& $1.2907*10^{-8}$	& $3.3871*10^{-6}$ & \\ \hline
+	\end{tabular}
+    \end{center}
+
+    \inputminted[linenos,frame=lines,framesep=2mm]{octave}{p2.m}
+
+\problem{}
+
+    Use the Matlab routine $fzero$ or something comparable to find the two solutions of
+    $$ e^x - x - 2 = 0.$$
+    There is one positive and one negative solution.
+
+\solution
+    
+    TODO
+
+\end{document}
