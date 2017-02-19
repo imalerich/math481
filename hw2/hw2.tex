@@ -7,6 +7,7 @@
 \graphicspath{ {png/} }
 
 \begin{document}
+\raggedright
 
 \problem{}
 
@@ -21,13 +22,38 @@
 
 \solution
     
-    TODO
+    First let us rewrite the method as
+    $$
+	y_{n+1} + \frac{27}{11}y_n - \frac{27}{11}y_{n-1} - y_{n-2} =
+	h\biggr[\frac{3}{11}f_{n+1} + \frac{27}{11}f_n + \frac{27}{11}f_{n-1} + \frac{2}{11}f_{n-2}\biggr]
+    $$
+
+    Note that for this method we have 
+    $$
+	a_0 = -1, a_1 = -\frac{27}{11}, a_2 = \frac{27}{11}
+    $$
+
+    Which produces the characteristic polynomial
+    \begin{align*}
+	p(z) &= z^3 + \frac{27}{11}z^2 - \frac{27}{11} - 1 \\
+	&= \frac{1}{11}(z-1)(11z^2 + 38z+11) \\
+	&= \frac{1}{11}(z-1)
+	    (z + \frac{1}{11}(19 + 4\sqrt{15}))
+	    (z - \frac{1}{11}(4\sqrt{15} - 19))
+    \end{align*}
+
+    From this we find the zeros for the characteristic polynomial
+    $$
+	z = 1,
+	z = -\frac{1}{11}(19 + 4\sqrt{15}),
+	z = \frac{1}{11}(4\sqrt{15} - 19)
+    $$
 
 \problem{}
 
     The IVP
     \begin{align*}
-	y' &= -y + 2e^{-t}\cos(2t) &\\
+	y' &= -y + 2e^{-t}\cos(2t) \\
 	y(0) &= 0
     \end{align*}
     has the true solution $y(t) = e^{-t}\sin(2t)$. \\
