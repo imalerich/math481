@@ -49,6 +49,9 @@
 	z = \frac{1}{11}(4\sqrt{15} - 19)
     $$
 
+    Note that $|-\frac{1}{11}(19 + 4\sqrt{15})| \approx 3.1356303 \textgreater 1$. \\
+    This implies that this method is not stable for small values of $h\lambda$.
+
 \problem{}
 
     The IVP
@@ -126,5 +129,23 @@
     \clearpage
     \inputminted[linenos,frame=lines,framesep=2mm]{octave}{p4.m}
     \inputminted[linenos,frame=lines,framesep=2mm]{octave}{phi.m}
+
+\problem{}
+
+    \begin{enumerate}
+	\item This is a stiff ODE. Solev the equations on the interval [0, 0.001],
+	    using a stiff solver such as ode15s. Plot the result.
+	\item Answer the following questions.
+	    \begin{itemize}
+		\item How many steps did the stiff solver take? How much computer time?
+		\item How many steps does a non-stiff solver, such as ode113 take? How
+		    much computer time does it take?
+		\item What is the clock period?
+	    \end{itemize}
+    \end{enumerate}
+
+\solution
+
+    TODO
 
 \end{document}
