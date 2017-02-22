@@ -146,6 +146,17 @@
 
 \solution
 
-    TODO
+    \begin{center}
+	\includegraphics[scale=1.0]{p5a}
+    \end{center}
+
+    From the code included below, we can tell that ode15s took 393 steps and 
+    solved the stiff ODE in 0.721958 seconds whereas ode113 took 19484 steps to solve the stiff ODE in 1.1636209 seconds.
+    The graph gives us a clock width of approximately
+    $(8.25 * 10^{-4} - 4.45 * 10^{-4}) = 0.00038$ seconds.
+    Thus the clock period is approximately 0.00076 seconds.
+
+    \clearpage
+    \inputminted[linenos,frame=lines,framesep=2mm]{octave}{p5.m}
 
 \end{document}

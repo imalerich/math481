@@ -4,7 +4,7 @@ clear all;
 close all;
 hold on;
 
-% Actual solution.
+%% Actual solution.
 _f = @(t) e.^(-t) .* sin(2 .* t);
 _t = linspace(0, 5, 200);
 _y = _f(_t);
@@ -12,14 +12,14 @@ _y = _f(_t);
 plot(_t, _y, 'DisplayName', 'Solution', 'LineWidth', 1);
 val = _f(3)
 
-% Numerical Solutions
+%% Numerical Solutions
 f = @(t, y) -y + 2 .* e^(-t) * cos(2*t);
 h = 0.2; % Step Size
 t = 0:h:5; % Interval
 y = [0]; % Initial point
 steps = length(t);
 
-% RK4
+%% RK4
 for n = 1:(steps-1)
 
     % 4-Step
@@ -37,12 +37,12 @@ val = y((3/h) + 1)
 err = norm(_f(3) - val, inf)
 plot(t, y, 'DisplayName', 'RK4', 'LineWidth', 1);
 
-% PECE
+%% PECE
 y = y(1:4); % Pull startup values from RK4
 
 for n = 5:steps
 
-    % P: 4-Step AB
+    % 4-Step AB
     y(n) = y(n-1) + h * (
 	(55/24) * f(t(n-1), y(n-1)) -
 	(59/24) * f(t(n-2), y(n-2)) +
@@ -50,7 +50,7 @@ for n = 5:steps
 	(3/8)	* f(t(n-4), y(n-4))
     );
 
-    % C: 3-Step AM
+    % 3-Step AM
     y(n) = y(n-1) + h * (
 	(3/8)	* f(t(n), y(n)) +
 	(19/24)	* f(t(n-1), y(n-1)) -
@@ -64,9 +64,7 @@ val = y((3/h) + 1)
 err = norm(_f(3) - val, inf)
 plot(t, y, 'DisplayName', 'PECE - AB4/AM3', 'LineWidth', 1);
 
-% ODE45
-% Note I am using octave, so the implementation may differ slightly 
-% from the one provided by Matlab.
+%% ODE45
 
 [solx, soly] = ode45(f, [0 5], [0 0]);
 val = interp1(solx, soly(:,1), 3, method='linear')
