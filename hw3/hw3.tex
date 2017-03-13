@@ -1,0 +1,151 @@
+\documentclass{jhwhw}
+\author{Ian Malerich}
+\title{Math 481: Homework 3}
+
+\usepackage{amssymb, amsfonts, mathtools, graphicx, breqn, minted, subfig, float}
+\usemintedstyle{friendly}
+\graphicspath{ {png/} }
+
+\begin{document}
+\raggedright
+
+\problem{}
+
+    Assume we have a two-dimensional grid with equal spacing h in the x and y directions.
+    The standard approximation to $\nabla^2u = u_{xx} + u_{yy}$ with accuracy $O(h^2)$ is \\
+
+    $$
+	\frac{1}{h^2}
+	\begin{Bmatrix}
+	    & 1 & \\
+	    1 & -4 & 1 \\
+	    & 1 & \\
+	\end{Bmatrix}
+    $$
+
+    Consider a general 3 x 3 stencil. Because of symmetry considerations, we really only have 3
+    coefficients to play with:
+
+    $$
+	\frac{1}{h^2}
+	\begin{Bmatrix}
+	    a & b & a \\
+	    b & c & b \\
+	    a & b & a \\
+	\end{Bmatrix}
+    $$
+
+    \begin{enumerate}
+	\item Write out the Taylor series expansion of this formula up to the 4th derivative terms.
+	    Derive the two equations that make this formula an approximation to $\nabla^2u$ with error
+	    $O(h^2)$.
+	\item Explain why there is no way to get a formula with accuracy higher than $O(h^2)$ out of
+	    this approach.
+	\item However, there is a way to produce a formula where the error term is of the form
+	    $$ c \cdot (\nabla^4u)h^2. $$
+	    Here $\nabla^4u = \nabla_2(\nabla_2u)$. Find it.
+    \end{enumerate}
+
+\solution
+
+\part
+
+\part
+
+\part
+
+\problem{}
+
+    The standard second derivative approximation is
+
+    $$
+	\frac{u_{i+1} - 2u_i + u_{i-1}}{h^2} = u_i'' + \frac{1}{12}u^{(4)}h^2 + \ldots.
+    $$
+
+    \begin{enumerate}
+	\item Solve the DE
+	    \begin{align*}
+		u''(x) &= -sinx + e^x &\\
+		u(0) &= 1 &\\
+		u(1) &= sin1 + e &\\
+	    \end{align*}
+	    using standard finite differences, with step size h = 1/4. The true solution
+	    $u(x) = sinx + e^x$. Find the maximum error.
+	    Repeat with step size h = 1/8, and verify that the error goes down by a factor of 4, as expected.
+
+	\item Here is a way to get higher accuracy
+	    \begin{align*}
+		\frac{u_{i+1} - 2u_i + u_{i-1}}{h^2} &= \frac{1}{12}u_i^{(4*)}h^2 + O(h^4) &\\
+		&= f_i + \frac{1}{12}f_i'' h^2 + O(h^4) &\\
+		&= f_i + \frac{1}{12}\frac{f_{i+1} - 2f_i + f_{i-1}}{h^2}h^2 + O(h^4) &\\
+	    \end{align*}
+	    Repeat part (a) with this right-hand side, and verify that this time the error behaves like $h^4$.
+    \end{enumerate}
+
+\solution
+
+\part
+
+\part
+
+\problem{}
+
+    Instead of the Poisson equation $\nabla^2u = f$ in two dimensions, we could consider an
+    equation of the form $a(x,y)u_{xx} + b(x,y)u_{yy} = f$, with some coefficient functions a and b.
+    That would be easy to program: just multiply your stencils with the appropriate values of $a_{ij}, b_{ij}$.
+    What comes up much more frequently in applications is the equation
+    $$
+	\nabla \cdot [a(x,y)\nabla u(x,y) = f.
+    $$
+    For the one-dimensional version $[a(x)u'(x)]'$, a divided difference formula is given by
+    $$
+	[a(x)u'(x)]_i' \approx \frac{a_{i+1/2}(u_{i+1}-u_i) - a_{i-1/2}(u_i - u_{i-1})}{h^2}.
+    $$
+    This is derived by doing two centered differences in a row, with step size h/2.
+    \begin{enumerate}
+	\item Determine the leading error term of this formula.
+	\item Write out the system of linear equations that you get when you apply this formula in the BVP
+	    \begin{align*}
+		[a(x)u'(x)]' &= f(x) on [0,1] &\\
+		u(0) &= 2 &\\
+		u(1) &= 3 &\\
+	    \end{align*}
+	    with step size h = 0.25. The functions a and f are not given, so your solution should
+	    contain general terms like $a_{3/2}$ and $f_2$. This will be a $3\times 3$ system of equations.
+    \end{enumerate}
+
+\solution
+    
+\part
+
+\part
+
+\problem{}
+
+    \begin{enumerate}
+	\item Set up the finite difference equations for stepsize h = k = 0.25 for the Poisson equation
+	    \begin{align*}
+		-\nabla^2u &= x^2 + y^2 in [0,1] \times [0, 1] &\\
+		u(x,0) &= 0 &\\
+		u(x,1) &= \frac{1}{2}x^2 &\\
+		u(0,y) &= sin(\pi y) &\\
+		u(1,y) &= e^\pi sin(\pi y) + \frac{1}{2}x^2y^2 &\\
+	    \end{align*}
+	    The correct solution is
+	    $$
+		u(x,y) = e^{\pi x)sin(\pi y) + \frac{1}{2}x^2y^2.
+	    $$
+	    Print out the matrix and right-hand side. This should be a $9\times 9$ matrix.
+	    You can use routine poisson to build the matrix. Basically all the work is in getting the
+	    right-hand side correct.
+	
+	\item Solve the equation and plot the resulting surface. Solve it again with h = 0.05, and plot.
+    \end{enumerate}
+
+\solution
+
+\part
+
+\part
+
+\end{document}
